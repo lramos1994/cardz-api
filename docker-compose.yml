@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  escola_negocio_db:
+    container_name: cardz_db
+    image: 'mysql:8'
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: cardz
+      MYSQL_DATABASE: cardz
+      MYSQL_USER: cardz 
+      MYSQL_PASSWORD: cardz
+    volumes:
+      - data:/var/lib/mysql/
+
+volumes:
+  data:

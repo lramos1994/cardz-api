@@ -1,17 +1,6 @@
-const mongoose = require('mongoose');
+const knex = require('knex');
+const configuration = require('./knexfile');
 
-mongoose.connect('mongodb://localhost:27017/cardz-api');
+const connection = knex(configuration.development);
 
-const cardSchema = new mongoose.Schema(
-  {
-    name: String,
-    attack: Number,
-    life: Number,
-    defense: Number,
-  },
-  {
-    collection: 'cards',
-  }
-);
-
-module.exports = { Mongoose: mongoose, CardSchema: cardSchema };
+module.exports = connection;
