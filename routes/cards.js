@@ -1,29 +1,30 @@
 const express = require('express');
-const database = require('../db');
+const db = require('../db');
 
 const router = express.Router();
 
-/* GET all customers. */
+/* GET all cards. */
 router.get('/', (req, res, next) => {
-  const cards = database('card')
-    .select()
-    .then(rows => {
-      res.json(rows);
+  const Card = db.Mongoose.model('cards', db.CardSchema, 'cards');
+
+  Card.find({ _id: req.params.id })
+    .lean()
+    .exec((e, docs) => {
+      res.json(docs);
       res.end();
     });
 });
 
+/* Create card. */
+router.get('/', (req, res, next) => {
+  const Card = db.Mongoose.model('cards', db.CardSchema, 'cards');
 
-router.post('/', (req, res, next) => {
-  const cards = req.body;
-
-  cards.forEach((v, k) => {
-    database('cards')
-      .insert(v)
-      .into('card');
-  });
-
-  res.end();
+  Card.find({ _id: req.params.id })
+    .lean()
+    .exec((e, docs) => {
+      res.json(docs);
+      res.end();
+    });
 });
 
 module.exports = router;
