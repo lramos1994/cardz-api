@@ -26,14 +26,4 @@ router.post('/', (req, res, next) => {
   res.end();
 });
 
-/* GET all customers. */
-router.get('/cards/:id', (req, res, next) => {
-  const cards = database.select().table('cards');
-
-  cards.lean().exec((e, docs) => {
-    res.json(docs);
-    res.end();
-  });
-});
-
 module.exports = router;
