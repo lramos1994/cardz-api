@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
   const Card = db.Mongoose.model('cards', db.CardSchema, 'cards');
 
-  Card.find({ _id: req.params.id })
+  Card.find({})
     .lean()
     .exec((e, docs) => {
       res.json(docs);
@@ -16,15 +16,32 @@ router.get('/', (req, res, next) => {
 });
 
 /* Create card. */
-router.get('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
   const Card = db.Mongoose.model('cards', db.CardSchema, 'cards');
 
-  Card.find({ _id: req.params.id })
-    .lean()
-    .exec((e, docs) => {
-      res.json(docs);
+  console.log({
+    name: req.body.name,
+    attack: req.body.attack,
+    life: req.body.life,
+    defense: req.body.defense,
+  });
+
+  const newcart = new Card({
+    name: req.body.name,
+    attack: req.body.attack,
+    life: req.body.life,
+    defense: req.body.defense,
+  });
+
+  newcart.save(err => {
+    if (err) {
+      res.status(500).json({ error: err.message });
       res.end();
-    });
+      return;
+    }
+    res.json(newcart);
+    res.end();
+  });
 });
 
 module.exports = router;
