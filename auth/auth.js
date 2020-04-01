@@ -56,10 +56,9 @@ passport.use(
 passport.use(
   new JWTstrategy(
     {
-      // secret we used to sign our JWT
+      // TODO generate the api key
       secretOrKey: 'top_secret',
-      // we expect the user to send the token as a query parameter with the name 'secret_token'
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token'),
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
       try {

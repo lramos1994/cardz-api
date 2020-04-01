@@ -31,7 +31,11 @@ app.use(
   passport.authenticate('jwt', { session: false }),
   usersRouter
 );
-app.use('/cards', cardsRouter);
+app.use(
+  '/cards',
+  passport.authenticate('jwt', { session: false }),
+  cardsRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
