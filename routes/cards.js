@@ -57,4 +57,18 @@ router.put('/:id', (req, res, next) => {
   );
 });
 
+router.delete('/:id', (req, res, next) => {
+  const Card = db.Mongoose.model('cards', db.CardSchema, 'cards');
+
+  Card.find({ _id: req.params.id }).remove(err => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      res.end();
+      return;
+    }
+    res.json({ success: true });
+    res.end();
+  });
+});
+
 module.exports = router;
