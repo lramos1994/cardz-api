@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
+const { database } = require('./database');
 const UserSchema = require('./model/user');
 
-const Schema = mongoose.Schema;
-
-mongoose.connect('mongodb://localhost:27017/cardz-api');
+database.start();
 
 const cardSchema = new Schema(
   {
@@ -18,7 +17,6 @@ const cardSchema = new Schema(
 );
 
 module.exports = {
-  Mongoose: mongoose,
   CardSchema: cardSchema,
   UserSchema,
 };
