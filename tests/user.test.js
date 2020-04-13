@@ -8,9 +8,17 @@ const { database } = require('../database');
 beforeAll(async () => await database.start());
 
 /**
+ * Clear all test data after every test.
+ */
+// afterEach(async () => await database.cleanup());
+
+/**
  * Remove and close the db and server.
  */
-afterAll(async () => await database.close());
+afterAll(async () => {
+  await database.cleanup();
+  await database.close();
+});
 
 
 describe('User Endpoints', () => {
