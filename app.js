@@ -12,6 +12,7 @@ require('./auth/auth');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const decksRouter = require('./routes/decks');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -32,6 +33,11 @@ app.use(
   usersRouter
 );
 app.use('/cards', cardsRouter);
+app.use(
+  '/decks',
+  passport.authenticate('jwt', { session: false }),
+  decksRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
